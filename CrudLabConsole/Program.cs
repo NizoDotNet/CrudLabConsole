@@ -2,35 +2,34 @@
 using CrudLabConsole.Entities;
 using CrudLabConsole.Service;
 
-
-int lastStudentId = 1;
-int lastTeacherId = 1;
-
-while (true)
+void Start()
 {
-    Console.Clear();
-    Console.WriteLine("1. Teacher");
-    Console.WriteLine("2. Student");
-    Console.WriteLine("3. Exit");
-    if(int.TryParse(Console.ReadLine(), out int n))
+    while (true)
     {
-        if(n == 3)
+        Console.Clear();
+        Console.WriteLine("1. Teacher");
+        Console.WriteLine("2. Student");
+        Console.WriteLine("3. Exit");
+        if (int.TryParse(Console.ReadLine(), out int n))
         {
-            Console.WriteLine("End");
-            break;
-        }
-        else if(n == 1)
-        {
-            Controller controller = new TeacherController(new TeacherService());
-            Manager(controller);
-        }
-        else if(n == 2)
-        {
-            Controller controller = new StudentController(new StudentService());
-            Manager(controller);
+            Controller controller;
+            switch (n)
+            {
+                case 1:
+                    controller = new TeacherController(new TeacherService());
+                    Manager(controller);
+                    break;
+                case 2:
+                    controller = new StudentController(new StudentService());
+                    Manager(controller);
+                    break;
+                case 3:
+                    return;
+            }
         }
     }
 }
+
 
 void Manager(Controller controller)
 {
@@ -45,38 +44,35 @@ void Manager(Controller controller)
         Console.WriteLine("6. Save");
         Console.WriteLine("7. Exit");
 
-        if (int.TryParse(Console.ReadLine(), out int n))
+        int n = 0;
+
+        while (!int.TryParse(Console.ReadLine(), out n));
+        switch (n)
         {
-            if (n == 1)
-            {
+            case 1:
                 controller.DisplayAll();
-            }
-            else if (n == 2)
-            {
+                break;
+            case 2:
                 controller.DisplayOne();
-
-
-            }
-            else if (n == 3)
-            {
+                break;
+            case 3:
                 controller.Create();
-
-            }
-            else if (n == 4)
-            {
+                break;
+            case 4:
                 controller.Delete();
-            }
-            else if (n == 5)
-            {
+                break;
+            case 5:
                 controller.Update();
-            }
-            else if (n == 6)
-            {
+                break;
+            case 6:
                 controller.Save();
-            }
-            else if (n == 7) break;
-            Console.ReadLine();
+                break;
+            case 7:
+                return;
 
         }
+        Console.ReadLine();
     }
 }
+
+Start();

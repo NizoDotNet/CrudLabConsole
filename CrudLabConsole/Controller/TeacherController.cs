@@ -71,7 +71,6 @@ public class TeacherController : Controller
         {
         }
         teacherService.Delete(id);
-        lastTeacherId--;
     }
 
     public void Update()
